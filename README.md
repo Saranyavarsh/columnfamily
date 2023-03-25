@@ -1,33 +1,48 @@
-cassandra
-A Column family database is similar to a table in Relational Database Management System that stores data in rows and columns.
+          CASSANDRA
 
-STEPS INVOLVLED IN CREATING COLUMN FAMILY DATABASE USING CASSANDRA
 
-      1)Create a  keyspace in cassandra.
-      2)Create column families to store data.
-      3)Insert the data into the column families.
-shop management system: Creation of a KEYSPACE called shop_management. The database includes three tables
+A Column family database is similar 
+to a table in Relational Database 
+Management System that stores 
+data in rows and columns.
 
-     1)products
-     2)customer
-     3)orders
-The products table stores information about products such as
+STEPS INVOLVLED IN CREATING 
+COLUMN FAMILY DATABASE USING 
+CASSANDRA
 
-     product_id
-     product_name
-     stock
-     price
-The orders table stores infofrmation about orders such as
+       1)Create a  keyspace in cassandra.
+       2)Create column families to store data.
+       3)Insert the data into the column families.
 
-     order_id
-     customer_id
-     order_date
-     quantity
-     product_id
-     price
-The customer table stores informatiom about customer such as
+stationary store: Creation 
+of a KEYSPACE called stationary_store. 
+The database includes three tables
+ 
+       1)product
+       2)customer
+       3)staffs
 
-   customer_id
-   customer_name
-   customer_email
-And the tables are modifided using insert,update and delete commands.        
+The product table stores 
+information about products such as
+
+       product_id
+       product_name
+       product_price
+       product_qty
+
+The staffs table stores 
+infofrmation about staffs such as
+
+     staff_id
+     staff_joindate
+     staff_email
+
+The customer table stores 
+informatiom about customer such as
+
+     cust_id
+     cust_name
+     cust_email
+
+And the tables are modifided using 
+insert,update and delete commands.
