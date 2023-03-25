@@ -1,0 +1,130 @@
+cqlsh> CREATE KEYSPACE stationary_store WITH replication={'class':'SimpleStrategy','replication_factor':1};
+cqlsh> USE stationary_store;
+cqlsh:stationary_store> CREATE TABLE product(product_id varchar PRIMARY KEY,product_name text,product_price decimal,product_qty int);
+cqlsh:stationary_store> describe product;
+
+CREATE TABLE stationary_store.product (
+    product_id text PRIMARY KEY,
+    product_name text,
+    product_price decimal,
+    product_qty int
+) WITH bloom_filter_fp_chance = 0.01
+    AND caching = {'keys': 'ALL', 'rows_per_partition': 'NONE'}
+    AND comment = ''
+    AND compaction = {'class': 'org.apache.cassandra.db.compaction.SizeTieredCompactionStrategy', 'max_threshold': '32', 'min_threshold': '4'}
+    AND compression = {'chunk_length_in_kb': '64', 'class': 'org.apache.cassandra.io.compress.LZ4Compressor'}
+    AND crc_check_chance = 1.0
+    AND dclocal_read_repair_chance = 0.1
+    AND default_time_to_live = 0
+    AND gc_grace_seconds = 864000
+    AND max_index_interval = 2048
+    AND memtable_flush_period_in_ms = 0
+    AND min_index_interval = 128
+    AND read_repair_chance = 0.0
+    AND speculative_retry = '99PERCENTILE';
+
+cqlsh:stationary_store> CREATE TABLE customer(cust_id varchar PRIMARY KEY,cust_name text,cust_email text);
+cqlsh:stationary_store> describe customer;
+
+CREATE TABLE stationary_store.customer (
+    cust_id text PRIMARY KEY,
+    cust_email text,
+    cust_name text
+) WITH bloom_filter_fp_chance = 0.01
+    AND caching = {'keys': 'ALL', 'rows_per_partition': 'NONE'}
+    AND comment = ''
+    AND compaction = {'class': 'org.apache.cassandra.db.compaction.SizeTieredCompactionStrategy', 'max_threshold': '32', 'min_threshold': '4'}
+    AND compression = {'chunk_length_in_kb': '64', 'class': 'org.apache.cassandra.io.compress.LZ4Compressor'}
+    AND crc_check_chance = 1.0
+    AND dclocal_read_repair_chance = 0.1
+    AND default_time_to_live = 0
+    AND gc_grace_seconds = 864000
+    AND max_index_interval = 2048
+    AND memtable_flush_period_in_ms = 0
+    AND min_index_interval = 128
+    AND read_repair_chance = 0.0
+    AND speculative_retry = '99PERCENTILE';
+
+cqlsh:stationary_store> CREATE TABLE staffs(staff_id varchar PRIMARY KEY,staff_joindate timestamp,staff_email text);
+cqlsh:stationary_store> describe staffs;
+
+CREATE TABLE stationary_store.staffs (
+    staff_id text PRIMARY KEY,
+    staff_joindate timestamp,
+    staff_email text
+) WITH bloom_filter_fp_chance = 0.01
+    AND caching = {'keys': 'ALL', 'rows_per_partition': 'NONE'}
+    AND comment = ''
+    AND compaction = {'class': 'org.apache.cassandra.db.compaction.SizeTieredCompactionStrategy', 'max_threshold': '32', 'min_threshold': '4'}
+    AND compression = {'chunk_length_in_kb': '64', 'class': 'org.apache.cassandra.io.compress.LZ4Compressor'}
+    AND crc_check_chance = 1.0
+    AND dclocal_read_repair_chance = 0.1
+    AND default_time_to_live = 0
+    AND gc_grace_seconds = 864000
+    AND max_index_interval = 2048
+    AND memtable_flush_period_in_ms = 0
+    AND min_index_interval = 128
+    AND read_repair_chance = 0.0
+    AND speculative_retry = '99PERCENTILE';
+
+cqlsh:stationary_store> INSERT INTO product(product_id, product_name, product_price, product_qty)VALUES ('201','bags', 200.00, 34);
+cqlsh:stationary_store> INSERT INTO product(product_id, product_name, product_price, product_qty)VALUES ('202','books', 168.00, 50);
+cqlsh:stationary_store> INSERT INTO product(product_id, product_name, product_price, product_qty)VALUES ('203','pens', 30.00, 10);
+cqlsh:stationary_store> INSERT INTO product(product_id, product_name, product_price, product_qty)VALUES ('204','files', 40.00, 9);
+cqlsh:stationary_store> SELECT*FROM product;
+
+ product_id | product_name | product_price | product_qty
+------------+--------------+---------------+------------------
+       201  |    bags      |       200.00  |     34          
+       202  |    books     |       168.00  |     50
+       203  |    pens      |       30.00   |     10
+       204  |    files     |       40.00   |     9
+
+(4 rows)
+
+cqlsh:stationary_store> INSERT INTO customer (cust_id, cust_name, cust_email)VALUES ('1', 'Ravi', 'ravi@gmail.com');
+cqlsh:stationary_store> INSERT INTO customer (cust_id, cust_name, cust_email)VALUES ('2', 'Keerthi', 'keerthi@gmail.com');
+cqlsh:stationary_store> INSERT INTO customer (cust_id, cust_name, cust_email)VALUES ('3', 'Meenu', 'meenu@gmail.com');
+cqlsh:stationary_store> SELECT*FROM customer;
+
+ cust_id |    cust_email       | cust_name
+---------+---------------------+---------------
+       3 |   meenu@gmail.com   |  Meenu
+       2 |   keerthi@gmail.com |  Keerthi
+       1 |   ravi@gmail.com    |  Ravi
+
+(3 rows)
+
+cqlsh:stationary_store> INSERT INTO staffs (staff_id, staff_joindate, staff_email)VALUES ('560', toTimestamp(now()), 'reetha@gmail.com');
+cqlsh:stationary_store> INSERT INTO staffs (staff_id, staff_joindate, staff_email)VALUES ('203', toTimestamp(now()), 'mugi@gmail.com');
+cqlsh:stationary_store> INSERT INTO staffs (staff_id, staff_joindate, staff_email)VALUES ('109', toTimestamp(now()), 'udhaya@gmail.com);
+cqlsh:stationary_store> SELECT*FROM staffs;
+
+ staff_id | staff_joindate                  |  staff_email
+----------+---------------------------------+---------------------
+      560 | 2023-03-21 17:50:32.189000+0000 |  reetha@gmail.com
+      109 | 2023-03-21 17:52:22.718000+0000 |  udhaya@gmail.com
+      203 | 2023-03-21 17:51:37.499000+0000 |  mugi@gmail.com    
+
+(3 rows)
+
+cqlsh:stationary_store> UPDATE product SET product_name = 'papers' WHERE product_id ='203';
+cqlsh:stationary_store> SELECT*FROM product;
+
+ product_id | product_name | product_price | product_qty
+------------+--------------+---------------+-----------------
+        201 |      bags    |       200.00  |         34
+        202 |      books   |       168.00  |         50
+        203 |      papers  |       30.00   |         10
+        204 |      files   |       40.00   |          9
+
+(4 rows)
+cqlsh:stationary_store> DELETE FROM customer WHERE customer_id='2';
+cqlsh:stationary_store> SELECT*FROM customer;
+
+ cust_id | cust_email        | cust_name
+---------+-------------------+---------------
+       3 | meenu@gmail.com   |    Meenu
+       1 | ravi@gmail.com    |    Ravi
+
+(2 rows)
