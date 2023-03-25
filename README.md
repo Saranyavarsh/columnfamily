@@ -31,7 +31,7 @@ information about products such as
        product_qty
 
 The staffs table stores 
-infofrmation about staffs such as
+information about staffs such as
 
      staff_id
      staff_joindate
